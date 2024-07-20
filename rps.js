@@ -1,6 +1,3 @@
-let humanScore = 0;
-let computerScore = 0;
-
 function getComputerChoice() {
   let randomNumber = Math.floor(Math.random() * 3);
   if (randomNumber === 0) {
@@ -22,35 +19,59 @@ function getHumanChoice() {
 }
 
 function playRound(computerChoice, humanChoice) {
-  let winner = 0;
-
   console.log("Opponent plays " + computerChoice + "!");
   console.log("You play " + humanChoice + "!");
 
   if (humanChoice === "rock" && computerChoice === "scissors" ||
       humanChoice === "paper" && computerChoice === "rock" ||
       humanChoice === "scissors" && computerChoice === "paper") {
-    winner = 1;
+    return 1;
   }
-  else if (computerChoice === "rock" && playerChoice === "scissors" ||
-           computerChoice === "paper" && playerChoice === "rock" ||
-           computerChoice === "scissors" && playerChoice === "paper") {
-    winner = -1;
+  else if (computerChoice === "rock" && humanChoice === "scissors" ||
+           computerChoice === "paper" && humanChoice === "rock" ||
+           computerChoice === "scissors" && humanChoice === "paper") {
+    return -1;
   }
 
-  if (winner === 1) {
-    console.log("You win! " + humanChoice + " beats " + computerChoice + "!");
-    humanScore++;
+  return 0;
+}
+
+function playGame() {
+  let humanScore = 0;
+  let computerScore = 0;
+
+  for (let i = 1; i <= 5; i++) {
+    console.log("Round " + i);
+    const computerChoice = getComputerChoice();
+    const humanChoice = getHumanChoice();
+    const winner = playRound(computerChoice, humanChoice);
+
+
+    if (winner === 1) {
+     console.log("You win! " + humanChoice + " beats " + computerChoice + "!");
+      humanScore++;
+   }
+   else if (winner === -1) {
+     console.log("Opponent wins! " + computerChoice + " beats " + humanChoice + "!");
+     computerScore++;
+   }
+   else {
+     console.log("Tie!");
+   }
   }
-  else if (winner === -1) {
-    console.log("Opponent wins! " + computerChoice + " beats " + humanChoice + "!");
-    computerScore++;
+
+  console.log("GAME OVER!");
+  console.log("Final score: You - " + humanScore + " | " + computerScore + " - Opponent");
+
+  if (humanScore > computerScore) {
+    console.log("You win! Congratulations!");
+  }
+  else if (computerScore > humanScore) {
+    console.log("You lose!");
   }
   else {
-    console.log("Tie!");
+    console.log("Tie game!");
   }
 }
 
-const computerChoice = getComputerChoice();
-const humanChoice = getHumanChoice();
-playRound(computerChoice, humanChoice);
+playGame();
