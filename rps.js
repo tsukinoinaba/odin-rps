@@ -9,6 +9,12 @@ function getComputerChoice() {
   return "scissors";
 }
 
-for (let i = 0; i < 5; i++) {
-  console.log(getComputerChoice());
+function getHumanChoice() {
+  let humanChoice = prompt("What is your move? rock / paper / scissors");
+  while (humanChoice !== "rock" && humanChoice !== "paper" && humanChoice !== "scissors") {
+    humanChoice = prompt("Please enter only \"rock\", \"paper\" or \"scissors\", without the quotes");
+  }
+  return humanChoice;
 }
+
+console.log(getHumanChoice());
